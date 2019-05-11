@@ -26,5 +26,23 @@ router.post('/save', function(req, res, next) {
     html += '<tr><td>' + a[i].Product + " (x" + a[i].Qty + ")" + "</td><td>" + a[i].Qty * a[i].Price + "đ</td>";
   }
 
+  //console.log(products);
+   // a document instance
+   var bill = new ordersModel({
+    customer : {
+      name: req.body.InputName,
+      city: req.body.InputCity,
+      address: req.body.InputDistrict,
+      email: req.body.InputEmail,
+      phoneNumber: req.body.InputPhoneNumber,
+    },
+    product: products
+   });
+ 
+   // save model to database
+   bill.save(function (err, bill) {
+     if (err) return console.error(err);
+     console.log(" saved to bookstore collection.");
+   });
 
 module.exports = router;
